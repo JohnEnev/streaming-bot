@@ -1,0 +1,3 @@
+streaming_bot_env/
+*.pyc
+__pycache__/
