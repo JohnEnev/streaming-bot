@@ -1,3 +1,4 @@
 streaming_bot_env/
 *.pyc
 __pycache__/
+.env
