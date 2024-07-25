@@ -50,6 +50,7 @@ user_query = st.chat_input("Your message")
 if user_query is not None and user_query != "":
     st.session_state.chat_history.append(HumanMessage(content=user_query))
 
+
     with st.chat_message("Human"):
         st.markdown(user_query)
 
