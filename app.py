@@ -31,7 +31,7 @@ def get_response(query, chat_history):
 
     chain = prompt | llm | StrOutputParser()
 
-    return chain.invoke({
+    return chain.stream({
         "chat_history": chat_history,
         "user_question": query
     })
@@ -48,13 +48,13 @@ for message in st.session_state.chat_history:
 # User input
 user_query = st.chat_input("Your message")
 if user_query is not None and user_query != "":
-    st.session_state.chat_history.append(HumanMessage(user_query))
+    st.session_state.chat_history.append(HumanMessage(content=user_query))
+
 
     with st.chat_message("Human"):
         st.markdown(user_query)
 
     with st.chat_message("AI"):
-        ai_response = get_response(user_query, st.session_state.chat_history)
-        st.markdown(ai_response)
+        ai_response = st.write_stream(get_response(user_query, st.session_state.chat_history))
 
-    st.session_state.chat_history.append(AIMessage(ai_response))
+    st.session_state.chat_history.append(AIMessage(content=ai_response))
